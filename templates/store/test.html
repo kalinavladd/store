@@ -1,0 +1,56 @@
+{% for cart_item in cart_items %}
+<div class="col">
+    <div class="input-group input-spinner">
+        <div class="input-group-prepend">
+        <a onclick="subsctract('{{ cart_item.id }}')" href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+        </div>
+        <input type="text" class="form-control" id="quantity_{{ cart_item.id }}" value="{{ cart_item.quantity }}">
+        <div class="input-group-append">
+            <form action="{% url 'add_cart' cart_item.product.id %}" method="post">
+                {% csrf_token %}
+                {% for item in cart_item.variations.all %}
+                    <input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}">
+                {% endfor %}
+                <button class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
+            </form>
+        </div>
+    </div> <!-- input-group.// -->
+</div> <!-- col.// -->
+{% endfor %}
+
+<script>
+    function subsctract(id){
+        const input = document.getElementById('quantity_' + id)
+        input.value = input.value.parseInt() - 1
+    }
+
+    function add_cart(item_id){
+        $.ajax({
+            type: 'POST',
+            {#url: '{% url 'add_cart_api' cart_item.product.id %}', если на странице товара#}
+            {#url: 'api-cart',#}
+            data: {
+                'quantity': 'quantitu',
+            },
+            success: function (data){
+                'Уведемоление!'
+            }
+        })
+    }
+    {#если добавляю в базу то метод пост#}
+</script>
+{#allert!!!!!!! в аякс#}
+{#<div class="toast-container">#}
+{#    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 7777">#}
+{#        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">#}
+{#            <div class="toast-header">#}
+{#                <strong class="me-auto" id="toast_header"></strong>#}
+{#                <small id="toast_small_header"></small>#}
+{#                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>#}
+{#            </div>#}
+{#            <div class="toast-body" id="toast_body">#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
