@@ -143,3 +143,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 
 }
+
+# SMTP CONFIG
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'phantomassassinkill@gmail.com'
+EMAIL_HOST_PASSWORD = 'X4qq3a8w'
+EMAIL_USE_TLS = True
